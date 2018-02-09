@@ -1,10 +1,12 @@
 define(function(require) {
-   var jenkinsApi = require('./jenkins-api') 
-   jenkinsApi.getJobInfo()
+    const jenkinsApi = require('./jenkins-api');
+    const jquery = require('jquery');
+    
+    jenkinsApi.getJobInfo()
        .then(function(json) {
-            console.log("Got a response");
-            console.log(json); })
+            jquery("#content").text(JSON.stringify(json));
+        })
        .catch(function(error) {
-            console.log("Got an error");
-            console.log(error); });
+            jquery("#error").text(JSON.stringify(error));
+        });
 });
