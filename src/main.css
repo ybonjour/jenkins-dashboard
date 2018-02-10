@@ -1,0 +1,19 @@
+.successful {
+    color: #00FF00;
+}
+
+.unsuccessful {
+    color: #FF0000;
+}
+
+#pipeline {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.stage {
+    flex-grow: 1;
+    border: 1px solid black;
+    text-align: center;
+}
