@@ -1,22 +1,20 @@
 import {getJobOverview, getJobDetails, getWorkflow} from './jenkins-api'
-import $ from 'jquery'
 
 getJobOverview()
     .then(function(jobOverview) {
+        const durationElement = document.getElementById("duration");
         let buildNumber;
         let cssClass;
         if (isCurrentlySuccessful(jobOverview)) {
             buildNumber = jobOverview.lastUnsuccessfulBuild;
-            $("#duration").removeClass("unsuccessful");
-            $("#duration").addClass("successful");
+            durationElement.className = "successful";
         } else {
             buildNumber = jobOverview.lastUnsuccessfulBuild;
-            $("#duration").removeClass("successful");
-            $("#duration").addClass("unsuccessful");
+            durationElement.className = "unsuccessful";
         }
         getDurationText(buildNumber, jobOverview.lastCompletedBuild)
             .then(function(text) {
-                $("#duration").text(text);
+                durationElement.innerHTML = text;
             });
     
         getPipeline(jobOverview.lastCompletedBuild);
@@ -36,7 +34,7 @@ function getPipeline(buildNumber) {
     getWorkflow(buildNumber)
         .then(function(pipeline) {
             console.log(JSON.stringify(pipeline));
-            $("#pipeline").html(renderPipeline(pipeline));
+            document.getElementById("pipeline").innerHTML = renderPipeline(pipeline);
         });
 }
 
