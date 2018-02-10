@@ -1,4 +1,4 @@
-import {getJobOverview, getJobDetails, getWorkflow} from './jenkins-api'
+import {getJobOverview, getJobDetails, getWorkflow} from './jenkins-api.js'
 
 getJobOverview()
     .then(function(jobOverview) {

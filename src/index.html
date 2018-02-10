@@ -3,11 +3,7 @@
 	<head>
 		<title>Jenkins Dashboard</title>
         <link rel="stylesheet" href="main.css" />
-        <script src="node_modules/systemjs/dist/system.js"></script>
-        <script src="systemjs.config.js"></script>
-        <script>
-            SystemJS.import("./app/main.js");
-        </script>
+        <script src="app/main.js" type="module"></script>
 	</head>
 	<body>
         <h1 id="duration"></h1>
