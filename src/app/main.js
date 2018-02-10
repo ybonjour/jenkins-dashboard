@@ -1,13 +1,15 @@
-import {getJobInfo, isCurrentlySuccessful} from './jenkins-api'
+import {getJobInfo, isCurrentlySuccessful, numberOfSuccessfulBuilds} from './jenkins-api'
 import $ from 'jquery'
 
 getJobInfo()
    .then(function(jobinfo) {
+        let text;
         if (isCurrentlySuccessful(jobinfo)) {
-            $("#content").text("All good 2")
+            text = `All good since ${numberOfSuccessfulBuilds(jobinfo)} builds`
         } else {
-            $("#content").text("Failing")
+            text = `Failing since ${numberOfUnsuccessfulBuilds(jobinfo)} builds`
         }
+        $("#content").text(text)
     })
    .catch(function(error) {
         $("#error").text(JSON.stringify(error));

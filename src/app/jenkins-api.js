@@ -1,7 +1,7 @@
 function parseJobInfo(json) {
     return {
         lastSuccessfulBuild: json["lastSuccessfulBuild"]["number"],
-        lastUnSuccessfulBuild: json["lastUnsuccessfulBuild"]["number"],
+        lastUnsuccessfulBuild: json["lastUnsuccessfulBuild"]["number"],
         lastCompletedBuild: json["lastCompletedBuild"]["number"]
     };
 }
@@ -13,5 +13,13 @@ export function getJobInfo(){
 }
 
 export function isCurrentlySuccessful(jobInfo) {
-    return jobInfo.lastSuccessfulBuild > jobInfo.lastUnSuccessfulBuild
+    return jobInfo.lastSuccessfulBuild > jobInfo.lastUnsuccessfulBuild
+}
+
+export function numberOfSuccessfulBuilds(jobInfo) {
+    return jobInfo.lastCompletedBuild - jobInfo.lastUnsuccessfulBuild
+}
+
+export function numberOfUnsuccessfuldBuilds(jobInfo) {
+    return jobInfo.lastCompletedBuild - jobInfo.lastSuccessfulBuild
 }
