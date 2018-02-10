@@ -28,7 +28,7 @@ export class AppView extends HTMLElement {
     }
 
     renderChangeset(jobOverview) {
-        return `<changeset-view buildNumber="992"></changeset-view>`
+        return `<changeset-view buildNumber="${jobOverview.lastBuild}"></changeset-view>`
     }
     
     renderDuration(jobOverview) {
