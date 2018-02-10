@@ -6,7 +6,7 @@
     color: #FF0000;
 }
 
-#pipeline {
+.pipeline {
     display: flex;
     flex-direction: row;
     width: 100%;

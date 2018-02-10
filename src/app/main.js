@@ -1,4 +1,7 @@
-import {getJobOverview, getJobDetails, getWorkflow} from './jenkins-api.js'
+import {getJobOverview, getJobDetails, getWorkflow} from "./jenkins-api.js"
+import {PipelineView} from "./pipeline-view.js"
+
+customElements.define("pipeline-view", PipelineView);
 
 getJobOverview()
     .then(function(jobOverview) {
@@ -16,27 +19,7 @@ getJobOverview()
             .then(function(text) {
                 durationElement.innerHTML = text;
             });
-    
-        getPipeline(jobOverview.lastCompletedBuild);
     });
-
-function renderPipeline(pipeline) {
-    let output = ""
-    for(let stageIdx in pipeline.stages) {
-        const stage = pipeline.stages[stageIdx];
-        output += `<div class="stage">${stage.name}<br/>(${periodSeconds(stage.durationMs)})</div>`
-    }
-    return output;
-}
-
-
-function getPipeline(buildNumber) {
-    getWorkflow(buildNumber)
-        .then(function(pipeline) {
-            console.log(JSON.stringify(pipeline));
-            document.getElementById("pipeline").innerHTML = renderPipeline(pipeline);
-        });
-}
 
 function isCurrentlySuccessful(jobOverview) {
     return jobOverview.lastSuccessfulBuild > jobOverview.lastUnsuccessfulBuild
@@ -55,19 +38,6 @@ function sinceText(buildNumber) {
         .then(function(job) {
             return periodMinutes(job.timestamp, Date.now());
         });
-}
-
-function periodSeconds(period) {
-    let diff = period;
-    const minutes = Math.floor(diff / (1000*60));
-    diff = diff % (1000*60);
-    const seconds = Math.floor(diff / 1000)
-    let minutesOutput = ""    
-    if(minutes > 0) {
-        minutesOutput += `${minutes} min `
-    }
-    return `${minutesOutput}${seconds} sec`
-    
 }
 
 function periodMinutes(from, to) {
