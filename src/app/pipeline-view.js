@@ -1,13 +1,14 @@
-import {getJobOverview, getWorkflow} from "./jenkins-api.js"
+import {JenkinsApi} from "./jenkins-api.js"
 
 export class PipelineView extends HTMLElement {
     constructor() {
         super();
+        this.jenkinsApi = new JenkinsApi();
         let that = this;
-        getJobOverview().then(function(jobOverview){
-            getWorkflow(jobOverview.lastCompletedBuild).then(function(pipeline) {
+        this.jenkinsApi.getJobOverview().then(function(jobOverview){
+            that.jenkinsApi.getPipeline(jobOverview.lastCompletedBuild).then(function(pipeline) {
                 that.render(pipeline);
-            });
+            }); 
         });
     }
     

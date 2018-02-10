@@ -1,79 +1,83 @@
-const jobOverview = "job/coop.mws.pipeline-ERGOneo/job/master"
+export class JenkinsApi {
+    constructor() {
+        this.jobPath = "job/coop.mws.pipeline-ERGOneo/job/master";    
+    }
 
-export function getJobOverview(){
-    return fetch(jenkinsEndpoint(jobOverview))
-        .then(jsonBody)
-        .then(parseJobOverview);
-}
+    getJobOverview(){
+        return fetch(this.jenkinsEndpoint(this.jobPath))
+            .then(response => response.json())
+            .then(json => this.parseJobOverview(json));
+    }
 
-export function getJobDetails(buildNumber) {
-    return fetch(jenkinsEndpoint(`${jobOverview}/${buildNumber}`))
-    .then(jsonBody)
-    .then(parseJobDetails)
-}
+    getJobDetails(buildNumber) {
+        return fetch(this.jenkinsEndpoint(`${this.jobPath}/${buildNumber}`))
+            .then(response => response.json())
+            .then(json => this.parseJobDetails(json))
+    }
 
-export function getWorkflow(buildNumber) {
-    return fetch(workflowEndpoint(jobOverview, `runs?since=%23${buildNumber}`))
-        .then(jsonBody)
-        .then(selectJob(buildNumber))
-        .then(parseWorkflow)
-}
+    getPipeline(buildNumber) {
+        return fetch(this.workflowEndpoint(this.jobPath, `runs?since=%23${buildNumber}`))
+            .then(response => response.json())
+            .then(this.selectJob(buildNumber))
+            .then(job => this.parseWorkflow(job))
+    }
 
-function selectJob(buildNumber) {
-    return function(json) {
-        for(let elementIdx in json){
-            const element = json[elementIdx];
-            if(Number(element["id"]) == buildNumber) {
-                return element;
+    selectJob(buildNumber) {
+        return function(json) {
+            for(let elementIdx in json){
+                const element = json[elementIdx];
+                if(Number(element["id"]) == buildNumber) {
+                    return element;
+                }
             }
+            return {};
         }
-        return {};
     }
-}
 
-function workflowEndpoint(path, workflowEndpoint) {
-    return `jenkins/${path}/wfapi/${workflowEndpoint}`;
-}
-
-function parseWorkflow(json) {
-    return {
-        buildNumber: Number(json["id"]),
-        stages: parseStages(json["stages"])       
+    workflowEndpoint(path, workflowEndpoint) {
+        return `jenkins/${path}/wfapi/${workflowEndpoint}`;
     }
-}
 
-function parseStages(json) {
-    let stages = [];
-    for(let stageIdx in json) {
-        const stage = json[stageIdx];
-        stages.push({
-            name: stage["name"],
-            status: stage["status"],
-            durationMs: Number(stage["durationMillis"])
-        });
+    parseWorkflow(json) {
+        return {
+            buildNumber: Number(json["id"]),
+            stages: this.parseStages(json["stages"])       
+        }
     }
-    
-    return stages;
-}
 
-function jenkinsEndpoint(path) {
-    return `jenkins/${path}/api/json`
-}
+    parseStages(json) {
+        let stages = [];
+        for(let stageIdx in json) {
+            const stage = json[stageIdx];
+            stages.push({
+                name: stage["name"],
+                status: stage["status"],
+                durationMs: Number(stage["durationMillis"])
+            });
+        }
 
-function parseJobOverview(json) {
-    return {
-        lastSuccessfulBuild: json["lastSuccessfulBuild"]["number"],
-        lastUnsuccessfulBuild: json["lastUnsuccessfulBuild"]["number"],
-        lastCompletedBuild: json["lastCompletedBuild"]["number"]
-    };
-}
-
-function parseJobDetails(json) {
-    return {
-        timestamp: json["timestamp"]
+        return stages;
     }
-}
 
-function jsonBody(response) {
-    return response.json();
+    jenkinsEndpoint(path) {
+        return `jenkins/${path}/api/json`
+    }
+
+    parseJobOverview(json) {
+        return {
+            lastSuccessfulBuild: json["lastSuccessfulBuild"]["number"],
+            lastUnsuccessfulBuild: json["lastUnsuccessfulBuild"]["number"],
+            lastCompletedBuild: json["lastCompletedBuild"]["number"]
+        };
+    }
+
+    parseJobDetails(json) {
+        return {
+            timestamp: json["timestamp"]
+        }
+    }
+
+    jsonBody(response) {
+        return response.json();
+    }
 }

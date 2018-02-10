@@ -1,4 +1,3 @@
-import {getJobOverview, getJobDetails, getWorkflow} from "./jenkins-api.js"
 import {PipelineView} from "./pipeline-view.js"
 import {DurationView} from "./duration-view.js"
 

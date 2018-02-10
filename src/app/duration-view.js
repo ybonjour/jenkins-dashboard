@@ -1,10 +1,11 @@
-import {getJobOverview, getJobDetails} from "./jenkins-api.js"
+import {JenkinsApi} from "./jenkins-api.js"
 
 export class DurationView extends HTMLElement {
     constructor() {
         super();
+        this.jenkinsApi = new JenkinsApi();
         let that = this;
-        getJobOverview().then(function(jobOverview) {
+        this.jenkinsApi.getJobOverview().then(function(jobOverview) {
             let buildNumber;
             let style;
             if (that.isCurrentlySuccessful(jobOverview)) {
@@ -43,7 +44,7 @@ export class DurationView extends HTMLElement {
 
     sinceText(buildNumber) {
         let that = this;
-        return getJobDetails(buildNumber)
+        return this.jenkinsApi.getJobDetails(buildNumber)
             .then(function(job) {
                 return that.periodMinutes(Date.now() - job.timestamp);
             });
@@ -60,5 +61,4 @@ export class DurationView extends HTMLElement {
         }
         return `${hoursOutput}${minutes} min`;
     }
-
 }
