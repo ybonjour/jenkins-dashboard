@@ -1,5 +1,5 @@
-import {getJobInfo} from './jenkins-api.js'
-import $ from '../node_modules/jquery/dist/jquery.js'
+import {getJobInfo} from 'jenkins-api'
+import $ from 'jquery'
 
 getJobInfo()
    .then(function(json) {

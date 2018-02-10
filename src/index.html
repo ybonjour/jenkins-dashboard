@@ -5,13 +5,16 @@
         <script src="node_modules/systemjs/dist/system.js"></script>
         <script>
             SystemJS.config({
+                baseUrl: "app",
+                defaultExtenstion: "js",
                 map: {
-                    'plugin-babel': 'node_modules/systemjs-plugin-babel/plugin-babel.js',
-                    'systemjs-babel-build': 'node_modules/systemjs-plugin-babel/systemjs-babel-browser.js'
+                    "jquery": "node_modules/jquery/dist/jquery.min.js",
+                    "plugin-babel": "node_modules/systemjs-plugin-babel/plugin-babel.js",
+                    "systemjs-babel-build": "node_modules/systemjs-plugin-babel/systemjs-babel-browser.js"
                 },
-                transpiler: 'plugin-babel'
+                transpiler: "plugin-babel"
             });
-            SystemJS.import('./app/main.js');
+            SystemJS.import("./app/main.js");
         </script>
 	</head>
 	<body>
