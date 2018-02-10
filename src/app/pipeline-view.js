@@ -4,11 +4,10 @@ export class PipelineView extends HTMLElement {
     constructor() {
         super();
         this.jenkinsApi = new JenkinsApi();
-        let that = this;
-        this.jenkinsApi.getJobOverview().then(function(jobOverview){
-            that.jenkinsApi.getPipeline(jobOverview.lastCompletedBuild).then(function(pipeline) {
-                that.render(pipeline);
-            }); 
+        this.jenkinsApi.getJobOverview().then(jobOverview => {
+            this.jenkinsApi.getPipeline(jobOverview.lastCompletedBuild).then(pipeline => {
+                this.render(pipeline);
+            });
         });
     }
     

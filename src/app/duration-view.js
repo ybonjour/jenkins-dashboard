@@ -4,11 +4,10 @@ export class DurationView extends HTMLElement {
     constructor() {
         super();
         this.jenkinsApi = new JenkinsApi();
-        let that = this;
-        this.jenkinsApi.getJobOverview().then(function(jobOverview) {
+        this.jenkinsApi.getJobOverview().then(jobOverview => {
             let buildNumber;
             let style;
-            if (that.isCurrentlySuccessful(jobOverview)) {
+            if (this.isCurrentlySuccessful(jobOverview)) {
                 buildNumber = jobOverview.lastUnsuccessfulBuild;
                 style = "successful";
             } else {
@@ -16,10 +15,8 @@ export class DurationView extends HTMLElement {
                 style = "unsuccessful";
             }
             
-            that.getDurationText(buildNumber, jobOverview.lastCompletedBuild)
-                .then(function(text) {
-                    that.render(text, style)
-                });
+            this.getDurationText(buildNumber, jobOverview.lastCompletedBuild)
+                .then(text => this.render(text, style));
         });
     }
 
@@ -43,11 +40,8 @@ export class DurationView extends HTMLElement {
     }
 
     sinceText(buildNumber) {
-        let that = this;
         return this.jenkinsApi.getJobDetails(buildNumber)
-            .then(function(job) {
-                return that.periodMinutes(Date.now() - job.timestamp);
-            });
+            .then(job => this.periodMinutes(Date.now() - job.timestamp));
     }
 
     periodMinutes(period) {
