@@ -1,4 +1,4 @@
-function parse(json) {
+function parseJobInfo(json) {
     return {
         lastSuccessfulBuild: json["lastSuccessfulBuild"]["number"],
         lastUnSuccessfulBuild: json["lastUnsuccessfulBuild"]["number"],
@@ -9,5 +9,9 @@ function parse(json) {
 export function getJobInfo(){
     return fetch('jenkins/job/coop.mws.pipeline-ERGOneo/job/master/api/json')
         .then(function(response) { return response.json(); })
-        .then(parse);
-} 
+        .then(parseJobInfo);
+}
+
+export function isCurrentlySuccessful(jobInfo) {
+    return jobInfo.lastSuccessfulBuild > jobInfo.lastUnSuccessfulBuild
+}
