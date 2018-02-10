@@ -19,10 +19,17 @@ export class PipelineView extends HTMLElement {
     }
     
     renderStages(pipeline) {
+        let statusStyle = {
+            "SUCCESS": "successfulStage",
+            "IN_PROGRESS": "progressStage",
+            "FAILED": "unsuccessfulStage"
+        };
+        
         let output = "";
         for(let stageIdx in pipeline.stages) {
             const stage = pipeline.stages[stageIdx];
-            output += `<div class="stage">${stage.name}<br/>(${this.periodSeconds(stage.durationMs)})</div>`
+            const style = statusStyle[stage.status];
+            output += `<div class="stage ${style}">${stage.name}<br/>(${this.periodSeconds(stage.durationMs)})</div>`
         }
         return output;
     }

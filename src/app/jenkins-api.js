@@ -21,6 +21,28 @@ export class JenkinsApi {
             .then(json => this.selectPipeline(buildNumber, json))
             .then(json => this.parsePipeline(json))
     }
+    
+    getChangesets(buildNumber) {
+        return fetch(this.workflowEndpoint(`${this.jobPath}/${buildNumber}`, "changesets"))
+            .then(response => response.json())
+            .then(json => this.parseChangesets(json));
+    }
+                  
+    parseChangesets(json) {
+        let changesets = [];
+        for(let changesetIdx in json) {
+            const changeset = json[changesetIdx];
+            const commits = changeset["commits"];
+            for(let commitIdx in commits) {
+                const commit = commits[commitIdx];
+                changesets.push({
+                    "message": commit["message"],
+                    "author": commit["authorJenkinsId"]
+                });
+            }
+        }
+        return changesets;
+    }
 
     selectPipeline(buildNumber, json) {
         for(let elementIdx in json){
@@ -65,7 +87,8 @@ export class JenkinsApi {
         return {
             lastSuccessfulBuild: json["lastSuccessfulBuild"]["number"],
             lastUnsuccessfulBuild: json["lastUnsuccessfulBuild"]["number"],
-            lastCompletedBuild: json["lastCompletedBuild"]["number"]
+            lastCompletedBuild: json["lastCompletedBuild"]["number"],
+            lastBuild: json["lastBuild"]["number"]
         };
     }
 

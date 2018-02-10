@@ -1,9 +1,9 @@
 .successful {
-    color: #00FF00;
+    color: green;
 }
 
 .unsuccessful {
-    color: #FF0000;
+    color: red;
 }
 
 .pipeline {
@@ -16,4 +16,34 @@
     flex-grow: 1;
     border: 1px solid black;
     text-align: center;
+    padding: 5px;
+}
+
+.successfulStage {
+    border-bottom: 5px solid green;
+}
+
+.unsuccessfulStage {
+    border-bottom: 5px solid red;
+}
+
+.progressStage {
+    -webkit-animation: blinkingProgress 1s infinite;  /* Safari 4+ */
+    -moz-animation: blinkingProgress 1s infinite;  /* Fx 5+ */
+    -o-animation: blinkingProgress 1s infinite;  /* Opera 12+ */
+    animation: blinkingProgress 1s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@-webkit-keyframes blinkingProgress {
+    0%, 49% {
+        border-bottom: 5px solid green;
+    }
+    50%, 100% {
+        border-bottom: 5px solid white;
+    }
+}
+
+
+* {
+    font-family: Helvetica;
 }
