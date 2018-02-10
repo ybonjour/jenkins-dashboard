@@ -3,11 +3,11 @@ import {JenkinsApi} from "./jenkins-api.js"
 export class PipelineView extends HTMLElement {
     constructor() {
         super();
+        const buildNumber = this.attributes["buildNumber"].value;
+        
         this.jenkinsApi = new JenkinsApi();
-        this.jenkinsApi.getJobOverview().then(jobOverview => {
-            this.jenkinsApi.getPipeline(jobOverview.lastCompletedBuild).then(pipeline => {
-                this.render(pipeline);
-            });
+        this.jenkinsApi.getPipeline(buildNumber).then(pipeline => {
+            this.render(pipeline);
         });
     }
     
