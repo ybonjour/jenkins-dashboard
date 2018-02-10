@@ -33,7 +33,7 @@ export class DurationView extends HTMLElement {
     
     getDurationText(buildNumber, lastBuildNumber) {
         return this.sinceText(buildNumber)
-            .then(function(period) {
+            .then(period => {
                 const numBuilds = lastBuildNumber - buildNumber;
                 return `${period} (${numBuilds} Builds)`
             });

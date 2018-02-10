@@ -18,27 +18,25 @@ export class JenkinsApi {
     getPipeline(buildNumber) {
         return fetch(this.workflowEndpoint(this.jobPath, `runs?since=%23${buildNumber}`))
             .then(response => response.json())
-            .then(this.selectJob(buildNumber))
-            .then(job => this.parseWorkflow(job))
+            .then(json => this.selectPipeline(buildNumber, json))
+            .then(json => this.parsePipeline(json))
     }
 
-    selectJob(buildNumber) {
-        return function(json) {
-            for(let elementIdx in json){
-                const element = json[elementIdx];
-                if(Number(element["id"]) == buildNumber) {
-                    return element;
-                }
+    selectPipeline(buildNumber, json) {
+        for(let elementIdx in json){
+            const element = json[elementIdx];
+            if(Number(element["id"]) == buildNumber) {
+                return element;
             }
-            return {};
         }
+        return {};
     }
 
     workflowEndpoint(path, workflowEndpoint) {
         return `jenkins/${path}/wfapi/${workflowEndpoint}`;
     }
 
-    parseWorkflow(json) {
+    parsePipeline(json) {
         return {
             buildNumber: Number(json["id"]),
             stages: this.parseStages(json["stages"])       
