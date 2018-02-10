@@ -1,12 +1,10 @@
-define(function(require) {
-    const jenkinsApi = require('./jenkins-api');
-    const jquery = require('jquery');
-    
-    jenkinsApi.getJobInfo()
-       .then(function(json) {
-            jquery("#content").text(JSON.stringify(json));
-        })
-       .catch(function(error) {
-            jquery("#error").text(JSON.stringify(error));
-        });
-});
+import {getJobInfo} from './jenkins-api.js'
+import $ from '../node_modules/jquery/dist/jquery.js'
+
+getJobInfo()
+   .then(function(json) {
+        $("#content").text(JSON.stringify(json));
+    })
+   .catch(function(error) {
+        $("#error").text(JSON.stringify(error));
+    });

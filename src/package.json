@@ -1,0 +1,14 @@
+{
+  "name": "jenkins-dashboard",
+  "description": "A dashboard for Jenkins pipelines",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ybonjour/jenkins-dashboard.git"
+  },
+  "dependencies": {
+    "jquery": "3.3.1",
+    "systemjs": "0.21.0",
+    "systemjs-plugin-babel": "0.0.25"
+  }
+}

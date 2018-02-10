@@ -2,11 +2,21 @@
 <html>
 	<head>
 		<title>Jenkins Dashboard</title>
+        <script src="node_modules/systemjs/dist/system.js"></script>
+        <script>
+            SystemJS.config({
+                map: {
+                    'plugin-babel': 'node_modules/systemjs-plugin-babel/plugin-babel.js',
+                    'systemjs-babel-build': 'node_modules/systemjs-plugin-babel/systemjs-babel-browser.js'
+                },
+                transpiler: 'plugin-babel'
+            });
+            SystemJS.import('./app/main.js');
+        </script>
 	</head>
 	<body>
 		<h1>Jenkins Dashboard 3</h1>
         <div id="content"></div>
         <div id="error"></div>
-        <script data-main="app" src="lib/require.js"></script>
 	</body>
 </html>
