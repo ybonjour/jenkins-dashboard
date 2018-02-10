@@ -4,20 +4,15 @@ export class DurationView extends HTMLElement {
     constructor() {
         super();
         this.jenkinsApi = new JenkinsApi();
-        this.jenkinsApi.getJobOverview().then(jobOverview => {
-            let buildNumber;
-            let style;
-            if (this.isCurrentlySuccessful(jobOverview)) {
-                buildNumber = jobOverview.lastUnsuccessfulBuild;
-                style = "successful";
-            } else {
-                buildNumber = jobOverview.lastUnsuccessfulBuild;
-                style = "unsuccessful";
-            }
-            
-            this.getDurationText(buildNumber, jobOverview.lastCompletedBuild)
-                .then(text => this.render(text, style));
-        });
+        this.lastSuccessfulBuild = Number(this.attributes["lastSuccessfulBuild"].value);
+        this.lastUnsuccessfulBuild = Number(this.attributes["lastUnsuccessfulBuild"].value);
+        this.lastCompletedBuild = Number(this.attributes["lastCompletedBuild"].value);
+        
+        const lastDifferentBuild = this.isCurrentlySuccessful() ? this.lastUnsuccessfulBuild : this.lastSuccessfulBuild;
+        const style = this.isCurrentlySuccessful() ?  "successful" : "unsuccessful";
+
+        this.getDurationText(lastDifferentBuild, this.lastCompletedBuild)
+            .then(text => this.render(text, style));
     }
 
     render(text, style) {
@@ -27,8 +22,8 @@ export class DurationView extends HTMLElement {
             </h1>`;
     }
     
-    isCurrentlySuccessful(jobOverview) {
-        return jobOverview.lastSuccessfulBuild > jobOverview.lastUnsuccessfulBuild
+    isCurrentlySuccessful() {
+        return this.lastSuccessfulBuild > this.lastUnsuccessfulBuild
     }
     
     getDurationText(buildNumber, lastBuildNumber) {

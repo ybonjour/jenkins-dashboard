@@ -15,7 +15,11 @@ export class AppView extends HTMLElement {
     
     render(jobOverview) {
         this.innerHTML = `
-            <duration-view></duration-view>
+            <duration-view 
+                lastSuccessfulBuild="${jobOverview.lastSuccessfulBuild}"
+                lastCompletedBuild="${jobOverview.lastCompletedBuild}"
+                lastUnsuccessfulBuild="${jobOverview.lastUnsuccessfulBuild}"
+            ></duration-view>
             <pipeline-view buildNumber="${jobOverview.lastCompletedBuild}"></pipeline-view>
         `;
     }
