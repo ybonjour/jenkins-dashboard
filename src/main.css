@@ -14,20 +14,25 @@
 
 .stage {
     flex-grow: 1;
-    border: 1px solid black;
     text-align: center;
     padding: 5px;
+    border-radius: 5px;
+    margin: 2px;
 }
 
 .successfulStage {
-    border-bottom: 5px solid green;
+    border: 1px solid #008800;
+    border-bottom: 5px solid #008000;
+    background: #00800022;
 }
 
 .unsuccessfulStage {
-    border-bottom: 5px solid red;
+    border: 1px solid #AA0000;
+    border-bottom: 5px solid #AA0000;
+    background: #AA000022;
 }
 
-.progressStage {
+.progress {
     -webkit-animation: blinkingProgress 1s infinite;  /* Safari 4+ */
     -moz-animation: blinkingProgress 1s infinite;  /* Fx 5+ */
     -o-animation: blinkingProgress 1s infinite;  /* Opera 12+ */
@@ -36,10 +41,10 @@
 
 @-webkit-keyframes blinkingProgress {
     0%, 49% {
-        border-bottom: 5px solid green;
+        border-bottom: 5px solid #008000;
     }
     50%, 100% {
-        border-bottom: 5px solid white;
+        border-bottom: 1px solid #008000;
     }
 }
 

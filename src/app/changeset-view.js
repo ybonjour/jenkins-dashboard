@@ -10,15 +10,13 @@ export class ChangesetView extends HTMLElement {
             .then(changesets => this.parse(changesets));
     }
     
-    
     parse(changesets) {
-        console.log(changesets);
         let changesetsOutput = "";
         for(let changesetIdx in changesets) {
             const changeset = changesets[changesetIdx];
-            changesetsOutput += `<li>${changeset.message} - ${changeset.author}</li>`;
+            changesetsOutput += `<li class="changesetItem">${changeset.message} - ${changeset.author}</li>`;
         }
         
-        this.innerHTML = `<ul>${changesetsOutput}</ul>`;
+        this.innerHTML = `<ul class="changeset">${changesetsOutput}</ul>`;
     }
 }

@@ -1,6 +1,7 @@
 export class JenkinsApi {
     constructor() {
-        this.jobPath = "job/coop.mws.pipeline-ERGOneo/job/master";    
+        let jobPathLocation = window.location.hash.substring(1);
+        this.jobPath = jobPathLocation;    
     }
 
     getJobOverview(){
