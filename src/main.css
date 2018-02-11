@@ -1,9 +1,9 @@
 .successful {
-    color: green;
+    color: #008000;
 }
 
 .unsuccessful {
-    color: red;
+    color: #AA0000;
 }
 
 .pipeline {

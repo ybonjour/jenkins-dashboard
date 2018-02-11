@@ -95,7 +95,8 @@ export class JenkinsApi {
 
     parseJobDetails(json) {
         return {
-            timestamp: json["timestamp"]
+            timestamp: json["timestamp"],
+            duration: json["duration"]
         }
     }
 

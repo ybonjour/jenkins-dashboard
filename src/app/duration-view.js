@@ -36,7 +36,10 @@ export class DurationView extends HTMLElement {
 
     sinceText(buildNumber) {
         return this.jenkinsApi.getJobDetails(buildNumber)
-            .then(job => this.periodMinutes(Date.now() - job.timestamp));
+            .then(job => {
+                const diff = Date.now() - (job.timestamp + job.duration);
+                return this.periodMinutes(diff)
+            });
     }
 
     periodMinutes(period) {
