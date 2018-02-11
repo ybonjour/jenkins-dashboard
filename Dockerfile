@@ -1,9 +1,18 @@
 FROM nginx
 LABEL maintainer="yves.bonjour@gmail.com"
 
+RUN apt-get update && \
+    apt-get install -y python-dev python-setuptools
+RUN easy_install j2cli
+
 COPY nginx-conf/nginx.conf /etc/nginx/nginx.conf
-COPY nginx-conf/sites-available/jenkins-dashboard.conf /etc/nginx/sites-available/jenkins-dashboard.conf
 RUN mkdir -p /etc/nginx/sites-enabled
-RUN ln -s /etc/nginx/sites-available/jenkins-dashboard.conf /etc/nginx/sites-enabled/jenkins-dashboard.conf
 
 COPY src /var/www
+
+COPY nginx-conf/jenkins-dashboard.conf.j2 /templates/jenkins-dashboard.conf.j2
+
+COPY docker-entrypoint.sh /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]

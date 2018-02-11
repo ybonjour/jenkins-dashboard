@@ -1,6 +1,6 @@
 resolver 127.0.0.1;
 upstream jenkins {
-    server jenkins.ergon.ch;
+    server {{ JENKINS_SERVER }};
 }
 
 server

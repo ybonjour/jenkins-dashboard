@@ -2,8 +2,15 @@
 
 set -o errexit
 set -o pipefail
-set -o nounset
 
 dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
-docker run -p 80:80 -d --rm --name jenkins-dashboard jenkins-dashboard
+
+jenkins_server="$1"
+
+if [ -z ${jenkins_server} ]; then
+	echo "USAGE: ./start.sh <jenkins_server>"
+	exit 1
+fi
+
+docker run -p 80:80 -e "JENKINS_SERVER=${jenkins_server}" -d --rm --name jenkins-dashboard jenkins-dashboard
