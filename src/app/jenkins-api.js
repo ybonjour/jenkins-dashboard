@@ -30,15 +30,20 @@ export class JenkinsApi {
                   
     parseChangesets(json) {
         let changesets = [];
+        let addedCommits = [];
         for(let changesetIdx in json) {
             const changeset = json[changesetIdx];
             const commits = changeset["commits"];
             for(let commitIdx in commits) {
                 const commit = commits[commitIdx];
-                changesets.push({
-                    "message": commit["message"],
-                    "author": commit["authorJenkinsId"]
-                });
+                
+                if(!addedCommits.includes(commit["commitId"])) {
+                    addedCommits.push(commit["commitId"]);
+                    changesets.push({
+                        "message": commit["message"],
+                        "author": commit["authorJenkinsId"]
+                    });   
+                }
             }
         }
         return changesets;

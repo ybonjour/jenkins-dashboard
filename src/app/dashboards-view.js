@@ -9,7 +9,6 @@ export class DashboardsView extends HTMLElement {
     
     render(pipelines){
         for(let pipeline of pipelines) {
-            console.log(pipeline);
             this.innerHTML += this.renderPipeline(pipeline);
         }
     }
