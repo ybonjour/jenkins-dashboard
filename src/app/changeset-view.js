@@ -27,6 +27,8 @@ export class ChangesetView extends HTMLElement {
                     <p>${author}</p>
                 </div>
                 <ul class="changeset">${changsetList}</ul>`;
+        } else {
+            this.innerHTML = "No changes"
         }
     }
 }

@@ -42,6 +42,7 @@ changeset-view {
     height: 100%;
     border: 1px solid gray;
     border-radius: 5px;
+    padding: 5px;
 }
 
 .committer {
@@ -54,6 +55,7 @@ changeset-view {
 }
 .committer>p {
     width: 100%;
+    height: 100%;
     text-align: center;
     padding: 0px;
     margin: 0px;
