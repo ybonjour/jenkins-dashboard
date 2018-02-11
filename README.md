@@ -25,7 +25,7 @@ Use with caution.
 You need docker to run jenkins-dashboard.
 
 ```
-docker run -e "JENKINS_SERVER=<hostname of your jernkins server>" -p 80:80 -d --rm ybonjour/jenkins-dashboard
+docker run -e "JENKINS_SERVER=<hostname of your jernkins server>" -p 80:80 -d ybonjour/jenkins-dashboard
 ```
 
 Open `http://localhost/#Kjenkins_job_path>` in your browser. For example:
