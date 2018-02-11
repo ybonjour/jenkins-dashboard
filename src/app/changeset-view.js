@@ -1,9 +1,10 @@
 import {JenkinsApi} from "./jenkins-api.js"
+import {findAttribute} from "./find-attribute.js"
 
 export class ChangesetView extends HTMLElement {
     constructor() {
         super();
-        this.jenkinsApi = new JenkinsApi();
+        this.jenkinsApi = new JenkinsApi(findAttribute(this, "pipeline").value);
         const buildNumber = this.attributes["buildNumber"].value;
         
         this.jenkinsApi.getChangesets(buildNumber)

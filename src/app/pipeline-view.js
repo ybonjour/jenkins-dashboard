@@ -1,11 +1,12 @@
 import {JenkinsApi} from "./jenkins-api.js"
+import {findAttribute} from "./find-attribute.js"
 
 export class PipelineView extends HTMLElement {
     constructor() {
         super();
         const buildNumber = this.attributes["buildNumber"].value;
         
-        this.jenkinsApi = new JenkinsApi();
+        this.jenkinsApi = new JenkinsApi(findAttribute(this, "pipeline").value);
         this.jenkinsApi.getPipeline(buildNumber).then(pipeline => {
             this.render(pipeline);
         });

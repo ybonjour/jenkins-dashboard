@@ -1,7 +1,6 @@
 export class JenkinsApi {
-    constructor() {
-        let jobPathLocation = window.location.hash.substring(1);
-        this.jobPath = jobPathLocation;    
+    constructor(jobPath) {
+        this.jobPath = jobPath;
     }
 
     getJobOverview(){

@@ -1,4 +1,5 @@
 import {JenkinsApi} from "./jenkins-api.js"
+import {findAttribute} from "./find-attribute.js"
 import {PipelineView} from "./pipeline-view.js"
 import {DurationView} from "./duration-view.js"
 import {ChangesetView} from "./changeset-view.js"
@@ -10,7 +11,7 @@ export class AppView extends HTMLElement {
         customElements.define("duration-view", DurationView);
         customElements.define("changeset-view", ChangesetView);
         
-        this.jenkinsApi = new JenkinsApi();
+        this.jenkinsApi = new JenkinsApi(findAttribute(this, "pipeline").value);
         this.loadAndRepeat(10000);
     }
     

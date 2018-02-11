@@ -1,9 +1,10 @@
 import {JenkinsApi} from "./jenkins-api.js"
+import {findAttribute} from "./find-attribute.js"
 
 export class DurationView extends HTMLElement {
     constructor() {
         super();
-        this.jenkinsApi = new JenkinsApi();
+        this.jenkinsApi = new JenkinsApi(findAttribute(this, "pipeline").value);
         this.lastSuccessfulBuild = Number(this.attributes["lastSuccessfulBuild"].value);
         this.lastUnsuccessfulBuild = Number(this.attributes["lastUnsuccessfulBuild"].value);
         this.lastCompletedBuild = Number(this.attributes["lastCompletedBuild"].value);
