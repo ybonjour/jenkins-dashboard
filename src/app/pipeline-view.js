@@ -20,9 +20,9 @@ export class PipelineView extends HTMLElement {
     
     renderStages(pipeline) {
         let statusStyle = {
-            "SUCCESS": "successfulStage",
-            "IN_PROGRESS": "successfulStage progress",
-            "FAILED": "unsuccessfulStage"
+            "SUCCESS": "successful",
+            "IN_PROGRESS": "successful progress",
+            "FAILED": "unsuccessful"
         };
         
         let output = "";

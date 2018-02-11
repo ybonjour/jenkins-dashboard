@@ -11,12 +11,21 @@ export class ChangesetView extends HTMLElement {
     }
     
     parse(changesets) {
-        let changesetsOutput = "";
+        let changsetList = "";
+        let author = "";
         for(let changesetIdx in changesets) {
             const changeset = changesets[changesetIdx];
-            changesetsOutput += `<li class="changesetItem">${changeset.message} - ${changeset.author}</li>`;
+            changsetList += `<li>${changeset.message}</li>`;
         }
         
-        this.innerHTML = `<ul class="changeset">${changesetsOutput}</ul>`;
+        if(changesets.length > 0) {
+            const author = changesets[0].author;
+            this.innerHTML = `
+                <div class="committer">
+                    <img src="committer.jpg" alt="${author}" />
+                    <p>${author}</p>
+                </div>
+                <ul class="changeset">${changsetList}</ul>`;
+        }
     }
 }

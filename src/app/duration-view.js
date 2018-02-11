@@ -16,10 +16,8 @@ export class DurationView extends HTMLElement {
     }
 
     render(text, style) {
-        this.innerHTML = `
-            <h1 class="${style}">
-                ${text}
-            </h1>`;
+        this.className = style;
+        this.innerHTML = text;
     }
     
     isCurrentlySuccessful() {
@@ -30,7 +28,7 @@ export class DurationView extends HTMLElement {
         return this.sinceText(buildNumber)
             .then(period => {
                 const numBuilds = lastBuildNumber - buildNumber;
-                return `${period} (${numBuilds} Builds)`
+                return `${period}<br/>(${numBuilds} Builds)`
             });
     }
 

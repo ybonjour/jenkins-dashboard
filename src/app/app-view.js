@@ -16,7 +16,7 @@ export class AppView extends HTMLElement {
     
     loadAndRepeat(waitMs) {
         let that = this;
-        this.load().then(setTimeout(function() { that.loadAndRepeat(waitMs) }, waitMs));
+        this.load(); //.then(setTimeout(function() { that.loadAndRepeat(waitMs) }, waitMs));
     }
     
     load() {
@@ -24,7 +24,12 @@ export class AppView extends HTMLElement {
     }
     
     render(jobOverview) {
-        this.innerHTML = this.renderDuration(jobOverview) + this.renderChangeset(jobOverview) + this.renderPipelines(jobOverview);
+        this.innerHTML = `
+            <div class="header">
+                ${this.renderDuration(jobOverview)}
+                ${this.renderChangeset(jobOverview)}
+            </div>
+            ${this.renderPipelines(jobOverview)}`;
     }
 
     renderChangeset(jobOverview) {
