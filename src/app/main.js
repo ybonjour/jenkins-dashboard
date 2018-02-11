@@ -1,3 +1,3 @@
-import {DashboardView} from "./dashboard-view.js"
+import {DashboardsView} from "./dashboards-view.js"
 
-customElements.define("dashboard-view", DashboardView);
+customElements.define("dashboards-view", DashboardsView);
