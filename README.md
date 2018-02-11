@@ -33,7 +33,7 @@ cd jenkins-dashboard
 Open `http://localhost/#Kjenkins_job_path>` in your browser. For example:
 `http://localhost/#job/myFancyPipeline/job/master/`.
 
-If you want to show dashboards for multiple pipelines you can to this as follows:
+If you want to show dashboards for multiple pipelines you can do this as follows:
 `http://localhost/#<jenkins_job1_path>&<jenkins_job2_path>`.
 
 
