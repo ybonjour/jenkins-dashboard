@@ -4,7 +4,7 @@ import {PipelineView} from "./pipeline-view.js"
 import {DurationView} from "./duration-view.js"
 import {ChangesetView} from "./changeset-view.js"
 
-export class AppView extends HTMLElement {
+export class DashboardView extends HTMLElement {
     constructor() {
         super();
         customElements.define("pipeline-view", PipelineView);
