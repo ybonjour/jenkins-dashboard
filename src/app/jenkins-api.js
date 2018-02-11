@@ -85,6 +85,7 @@ export class JenkinsApi {
 
     parseJobOverview(json) {
         return {
+            name: json["fullName"],
             lastSuccessfulBuild: json["lastSuccessfulBuild"]["number"],
             lastUnsuccessfulBuild: json["lastUnsuccessfulBuild"]["number"],
             lastCompletedBuild: json["lastCompletedBuild"]["number"],

@@ -1,16 +1,9 @@
 import {JenkinsApi} from "./jenkins-api.js"
 import {findAttribute} from "./find-attribute.js"
-import {PipelineView} from "./pipeline-view.js"
-import {DurationView} from "./duration-view.js"
-import {ChangesetView} from "./changeset-view.js"
 
 export class DashboardView extends HTMLElement {
     constructor() {
-        super();
-        customElements.define("pipeline-view", PipelineView);
-        customElements.define("duration-view", DurationView);
-        customElements.define("changeset-view", ChangesetView);
-        
+        super();        
         this.jenkinsApi = new JenkinsApi(findAttribute(this, "pipeline").value);
         this.loadAndRepeat(10000);
     }
@@ -26,9 +19,13 @@ export class DashboardView extends HTMLElement {
     
     render(jobOverview) {
         this.innerHTML = `
+            
             <div class="header">
                 ${this.renderDuration(jobOverview)}
-                ${this.renderChangeset(jobOverview)}
+                <div class="right">
+                    <div class="title">${jobOverview.name}</div>
+                    ${this.renderChangeset(jobOverview)}
+                </div>
             </div>
             ${this.renderPipelines(jobOverview)}`;
     }
