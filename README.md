@@ -22,12 +22,10 @@ Which means it **doesn't** have:
 Use with caution.
 
 ## USAGE
-You will need docker to run the dashboard.
+You need docker to run jenkins-dashboard.
+
 ```
-git clone https://github.com/ybonjour/jenkins-dashboard.git
-cd jenkins-dashboard
-./build.sh
-./run.sh <hostname of your jernkins server>
+docker run -e "JENKINS_SERVER=<hostname of your jernkins server>" -p 80:80 -d --rm ybonjour/jenkins-dashboard
 ```
 
 Open `http://localhost/#Kjenkins_job_path>` in your browser. For example:
@@ -35,7 +33,3 @@ Open `http://localhost/#Kjenkins_job_path>` in your browser. For example:
 
 If you want to show dashboards for multiple pipelines you can do this as follows:
 `http://localhost/#<jenkins_job1_path>&<jenkins_job2_path>`.
-
-
-
-

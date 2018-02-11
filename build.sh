@@ -6,4 +6,4 @@ set -o nounset
 
 dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
-docker build -t jenkins-dashboard "${dir}"
+docker build -t ybonjour/jenkins-dashboard "${dir}"

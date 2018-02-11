@@ -13,4 +13,4 @@ if [ -z ${jenkins_server} ]; then
 	exit 1
 fi
 
-docker run -p 80:80 -e "JENKINS_SERVER=${jenkins_server}" -d --rm --name jenkins-dashboard jenkins-dashboard
+docker run -p 80:80 -e "JENKINS_SERVER=${jenkins_server}" -d --rm --name jenkins-dashboard ybonjour/jenkins-dashboard
