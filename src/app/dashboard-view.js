@@ -10,7 +10,7 @@ export class DashboardView extends HTMLElement {
     
     loadAndRepeat(waitMs) {
         let that = this;
-        this.load(); //.then(setTimeout(function() { that.loadAndRepeat(waitMs) }, waitMs));
+        this.load().then(setTimeout(function() { that.loadAndRepeat(waitMs) }, waitMs));
     }
     
     load() {
