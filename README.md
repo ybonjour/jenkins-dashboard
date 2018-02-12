@@ -20,6 +20,7 @@ Which means it **doesn't** have:
 - ...
 
 Use with caution.
+Also, I am pretty sure it only works in Chrome >= 61.
 
 ## USAGE
 You need docker to run jenkins-dashboard.
