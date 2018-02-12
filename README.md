@@ -17,10 +17,10 @@ Which means it **doesn't** have:
 - Tests
 - Performance optimizations
 - Clean code
+- Browser compatibility (I am preetty sure it only works in Chrome >= 61)
 - ...
 
 Use with caution.
-Also, I am pretty sure it only works in Chrome >= 61.
 
 ## USAGE
 You need docker to run jenkins-dashboard.
