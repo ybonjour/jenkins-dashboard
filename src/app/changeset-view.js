@@ -15,6 +15,10 @@ export class ChangesetView extends HTMLElement {
         let changsetList = "";
         let author = "";
         for(let changesetIdx in changesets) {
+            if(changesetIdx >= 4) {
+                changsetList += `<li>...</li>`
+                break;
+            }
             const changeset = changesets[changesetIdx];
             changsetList += `<li>${changeset.message}</li>`;
         }
