@@ -56,16 +56,16 @@ changeset-view {
 }
 
 .committer {
-    width: 80px;
     margin: 5px;
 }
 
 .committer>img {
-    width: 100%;
+    width: 80px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .committer>p {
-    width: 100%;
-    height: 100%;
     text-align: center;
     padding: 0px;
     margin: 0px;
@@ -73,6 +73,7 @@ changeset-view {
 }
 
 .changeset {
+    flex-grow: 1;
     list-style: none;
     padding: 0px;
     width: 100%;
