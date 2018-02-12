@@ -32,7 +32,10 @@ export class ChangesetView extends HTMLElement {
                 </div>
                 <ul class="changeset">${changsetList}</ul>`;
         } else {
-            this.innerHTML = "No changes"
+            this.innerHTML = `<div class="committer">
+                    <img src="committer.jpg" alt="No changes" />
+                </div>
+                <ul class="changeset"><li>No Changes</li></ul>`;
         }
     }
 }
