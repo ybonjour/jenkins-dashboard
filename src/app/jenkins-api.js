@@ -66,6 +66,8 @@ export class JenkinsApi {
     parsePipeline(json) {
         return {
             buildNumber: Number(json["id"]),
+            startTimeMs: json["startTimeMillis"],
+            status: json["status"],
             stages: this.parseStages(json["stages"])       
         }
     }

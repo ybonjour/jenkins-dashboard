@@ -100,6 +100,11 @@ changeset-view {
     margin: 2px;
 }
 
+.stage.time {
+    border 1px solid grey;
+    flex-grow: 0;
+}
+
 .stage.successful {
     border: 1px solid #008800;
     border-bottom: 5px solid #008000;

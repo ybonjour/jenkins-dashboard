@@ -14,25 +14,38 @@ export class PipelineView extends HTMLElement {
     
     render(pipeline) {
         this.innerHTML = `<div class="pipeline">
+            <div class="stage time ${this.getStyle(pipeline.status)}">${this.renderTime(pipeline.startTimeMs)}</div>
             ${this.renderStages(pipeline)}
         </div>
-        `
+        `;
     }
     
-    renderStages(pipeline) {
+    getStyle(status) {
         let statusStyle = {
             "SUCCESS": "successful",
             "IN_PROGRESS": "successful progress",
             "FAILED": "unsuccessful"
         };
         
+        const style = statusStyle[status];
+        
+        return style ? style : "unsuccessful";
+    }
+    
+    renderStages(pipeline) {
         let output = "";
         for(let stageIdx in pipeline.stages) {
             const stage = pipeline.stages[stageIdx];
-            const style = statusStyle[stage.status];
+            const style = this.getStyle(stage.status);
             output += `<div class="stage ${style}">${stage.name}<br/>(${this.periodSeconds(stage.durationMs)})</div>`
         }
         return output;
+    }
+    
+    renderTime(timestamp) {
+        let d = new Date();
+        d.setTime(timestamp);
+        return d.toLocaleTimeString();
     }
     
     periodSeconds(period) {
