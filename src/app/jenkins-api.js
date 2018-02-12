@@ -91,13 +91,22 @@ export class JenkinsApi {
     }
 
     parseJobOverview(json) {
+        
         return {
             name: json["fullName"],
-            lastSuccessfulBuild: json["lastSuccessfulBuild"]["number"],
-            lastUnsuccessfulBuild: json["lastUnsuccessfulBuild"]["number"],
-            lastCompletedBuild: json["lastCompletedBuild"]["number"],
-            lastBuild: json["lastBuild"]["number"]
+            lastSuccessfulBuild: this.numberOrDefault(json, "lastSuccessfulBuild", 1),
+            lastUnsuccessfulBuild: this.numberOrDefault(json, "lastUnsuccessfulBuild", 1),
+            lastCompletedBuild: this.numberOrDefault(json, "lastCompletedBuild", 1),
+            lastBuild: this.numberOrDefault(json, "lastBuild", 1)
         };
+    }
+    
+    numberOrDefault(json, name, defaultValue) {
+        if(json[name] == null) {
+            return defaultValue;
+        }
+        
+        return json[name]["number"];
     }
 
     parseJobDetails(json) {
