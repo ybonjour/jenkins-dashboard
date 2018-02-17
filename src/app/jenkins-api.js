@@ -10,23 +10,33 @@ export class JenkinsApi {
     }
 
     getJobDetails(buildNumber) {
-        return fetch(this.jenkinsEndpoint(`${this.jobPath}/${buildNumber}`))
+        return fetch(this.jenkinsEndpoint(this.jobPath, buildNumber))
             .then(response => response.json())
             .then(json => this.parseJobDetails(json))
     }
 
     getPipeline(buildNumber) {
-        return fetch(this.workflowEndpoint(this.jobPath, `runs?since=%23${buildNumber}`))
+        return fetch(this.workflowEndpoint(this.jobPath, buildNumber))
             .then(response => response.json())
-            .then(json => this.selectPipeline(buildNumber, json))
             .then(json => this.parsePipeline(json))
     }
     
     getChangesets(buildNumber) {
-        return fetch(this.workflowEndpoint(`${this.jobPath}/${buildNumber}`, "changesets"))
+        return fetch(this.workflowEndpoint(this.jobPath, buildNumber, "changesets"))
             .then(response => response.json())
             .then(json => this.parseChangesets(json));
     }
+    
+    workflowEndpoint(job, buildNumber, workflowEndpoint) {
+        const endpoint = workflowEndpoint ? workflowEndpoint : "";
+        return `jenkins/${job}/${buildNumber}/wfapi/${endpoint}`;
+    }
+    
+    jenkinsEndpoint(job, buildNumber) {
+        const buildNumberOrEmpty = buildNumber ? buildNumber : ""
+        return `jenkins/${job}/${buildNumberOrEmpty}/api/json`
+    }
+
                   
     parseChangesets(json) {
         let changesets = [];
@@ -47,20 +57,6 @@ export class JenkinsApi {
             }
         }
         return changesets;
-    }
-
-    selectPipeline(buildNumber, json) {
-        for(let elementIdx in json){
-            const element = json[elementIdx];
-            if(Number(element["id"]) == buildNumber) {
-                return element;
-            }
-        }
-        return {};
-    }
-
-    workflowEndpoint(path, workflowEndpoint) {
-        return `jenkins/${path}/wfapi/${workflowEndpoint}`;
     }
 
     parsePipeline(json) {
@@ -84,10 +80,6 @@ export class JenkinsApi {
         }
 
         return stages;
-    }
-
-    jenkinsEndpoint(path) {
-        return `jenkins/${path}/api/json`
     }
 
     parseJobOverview(json) {
