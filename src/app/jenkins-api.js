@@ -36,7 +36,6 @@ export class JenkinsApi {
         const buildNumberOrEmpty = buildNumber ? buildNumber : ""
         return `jenkins/${job}/${buildNumberOrEmpty}/api/json`
     }
-
                   
     parseChangesets(json) {
         let changesets = [];
